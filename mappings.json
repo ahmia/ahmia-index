@@ -1,124 +1,194 @@
 {
-	"crawlings": {
-		"settings":{
-      "index":{
-         "analysis":{
-            "analyzer":{
-               "analyzer_shingle":{
-                  "tokenizer": "standard",
-                  "filter": ["standard", "lowercase", "filter_stop", "filter_shingle"]
-               },
-            },
-            "filter":{
-               "filter_shingle":{
-                  "type":"shingle",
-                  "max_shingle_size":5,
-                  "min_shingle_size":2,
-                  "output_unigrams":"true"
-               },
-               "filter_stop":{
-                  "type":"stop",
-                  "enable_position_increments":"false"
-               }
-            }
-         }
-      }
-   },
-		"mappings": {
-			"tor": {
-				"dynamic_templates": [
-	        {
-	          "indexed_strings": {
-	            "match_mapping_type": "string",
-	            "mapping": {
-	              "type": "string",
-	              "fields": {
-	                "shingles": {
-	                  "type": "string",
-	                  "analyzer": "analyzer_shingle"
-	                },
-	                "stemming": {
-	                  "type": "string",
-	                  "analyzer": "english"
-	                }
-	              }
-	            }
-	          }
+	"settings": {
+		"analysis": {
+			"char_filter": {
+	      "quotes": {
+	        "type": "mapping",
+	    		"mappings": [
+	        	"\\u0091=>\\u0027",
+	          "\\u0092=>\\u0027",
+	          "\\u2018=>\\u0027",
+	          "\\u2019=>\\u0027",
+	          "\\u201B=>\\u0027"
+	        ]
+	      }
+	    },
+			"filter":{
+				 "filter_shingle":{
+						"type":"shingle",
+						"max_shingle_size":2,
+						"min_shingle_size":2,
+						"output_unigrams":false
+				 },
+				 	"english_stop": {
+          	"type":       "stop",
+          	"stopwords":  "_english_"
+	        },
+	        "english_stemmer": {
+	          "type":       "stemmer",
+	          "language":   "english"
+	        },
+	        "english_possessive_stemmer": {
+	          "type":       "stemmer",
+	          "language":   "possessive_english"
+	        }
+			},
+			"analyzer": {
+				"url": {
+					"type": "custom",
+					"char_filter": ["html_strip"],
+					"tokenizer": "lowercase",
+					"filter": ["stop"]
+				},
+				"raw_plain": {
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "stop"]
+				},
+				"raw_html": {
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "stop"]
+				},
+				"english_plain": {
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": [
+						"english_possessive_stemmer",
+						"lowercase",
+						"english_stop",
+						"english_stemmer"
+					]
+				},
+				"english_html": {
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": [
+						"english_possessive_stemmer",
+						"lowercase",
+						"english_stop",
+						"english_stemmer"
+					]
+				},
+				"shingle_plain":{
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "filter_shingle"]
+				},
+				"shingle_html":{
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "filter_shingle"]
+				}
+			}
+		}
+	},
+	"mappings": {
+		"tor": {
+			"properties": {
+				"url": {
+					"type": "string",
+					"analyzer": "url"
+				},
+
+				"title": {
+					"type": "string",
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"meta": {
+					"type": "string"	,
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"anchors": {
+					"type": "string",
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"fancy": {
+					"type": "string",
+					"analyzer": "raw_plain",
+					"fields": {
+						"shingles": {
+							"type": "string",
+							"analyzer": "shingle_plain"
+						},
+						"english": {
+							"type": "string",
+							"analyzer": "english_plain"
+						}
 					}
-				],
-				"properties": {
-					"url": {
-						"type": "indexed_strings",
-						"copy_to": "fancy"
-					},
-					"title": {
-						"type": "indexed_strings",
-						"copy_to": "fancy"
-					},
-					"meta": {
-						"type": "indexed_strings",
-						"copy_to": "fancy"
-					},
-					"anchors": {
-						"type": "indexed_strings",
-						"copy_to": "fancy"
-					},
-					"fancy": {
-						"type": "indexed_strings",
-					},
+				},
 
-					"plain": {
-						"type": "indexed_strings"
-					},
+				"content": {
+					"type": "string",
+					"analyzer": "raw_html",
+					"fields": {
+						"shingles": {
+							"type": "string",
+							"analyzer": "shingle_html"
+						},
+						"english": {
+							"type": "string",
+							"analyzer": "english_html"
+						}
+					}
+				},
 
-					"domain": {
-						"type": "string",
-						"index": "not_analyzed"
-					},
-					"lang": {
-						"type": "string",
-						"index": "not_analyzed"
-					},
-					"mime": {
-						"type": "string",
-						"index": "not_analyzed"
-					},
+				"domain": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"lang": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"content_type": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"content_checksum": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
 
-					"code": {
-						"type": "int"
-					},
-					"is_fake": {
-						"type": "boolean"
-					},
-					"is_banned": {
-						"type": "boolean"
-					},
+				"code": {
+					"type": "short"
+				},
+				"is_fake": {
+					"type": "boolean"
+				},
+				"is_banned": {
+					"type": "boolean"
+				},
 
-					"created_on": {
-						"type": "date",
-						"format": "dateOptionalTime"
-					},
-					"updated_on": {
-						"type": "date",
-						"format": "dateOptionalTime"
-					},
-					"last_seen": {
-						"type": "date",
-						"format": "dateOptionalTime"
-					},
+				"updated_on": {
+					"type": "date",
+					"format": "dateOptionalTime"
+				},
+				"last_seen": {
+					"type": "date",
+					"format": "dateOptionalTime"
+				},
 
-					"authority": {
-						"type": "double"
-					},
-					"visits": {
-						"type": "long"
-					},
-					"clicks": {
-						"type": "long"
-					},
-					"backlinks": {
-						"type": "long"
-					},
+				"authority": {
+					"type": "double"
+				},
+				"visits": {
+					"type": "long"
+				},
+				"clicks": {
+					"type": "long"
+				},
+				"backlinks": {
+					"type": "long"
 				}
 			}
 		}
