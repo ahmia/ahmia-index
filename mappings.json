@@ -1,516 +1,194 @@
 {
-	"crawlings": {
-		"mappings": {
-			"i2p": {
-				"properties": {
-					"domain": {
-						"type": "string",
-						"index": "not_analyzed"
-					},
-					"h1": {
-						"type": "string"
-					},
-					"h2": {
-						"type": "string"
-					},
-					"header": {
-						"properties": {
-							"Accept-Ranges": {
-								"type": "string"
-							},
-							"Cache-Control": {
-								"type": "string"
-							},
-							"Content-Disposition": {
-								"type": "string"
-							},
-							"Content-Language": {
-								"type": "string"
-							},
-							"Content-Type": {
-								"type": "string"
-							},
-							"Date": {
-								"type": "string"
-							},
-							"Etag": {
-								"type": "string"
-							},
-							"Expires": {
-								"type": "string"
-							},
-							"Last-Modified": {
-								"type": "string"
-							},
-							"Pragma": {
-								"type": "string"
-							},
-							"Set-Cookie": {
-								"type": "string"
-							},
-							"Status": {
-								"type": "string"
-							},
-							"Vary": {
-								"type": "string"
-							},
-							"X-Content-Type-Options": {
-								"type": "string"
-							},
-							"X-Frame-Options": {
-								"type": "string"
-							},
-							"X-Pingback": {
-								"type": "string"
-							},
-							"X-Runtime": {
-								"type": "string"
-							},
-							"X-Ua-Compatible": {
-								"type": "string"
-							}
-						}
-					},
-					"links": {
-						"properties": {
-							"link": {
-								"type": "string",
-								"index": "not_analyzed"
-							},
-							"link_name": {
-								"type": "string"
-							}
-						}
-					},
-					"text": {
-						"type": "string"
-					},
-					"timestamp": {
-						"type": "date",
-						"format": "dateOptionalTime"
-					},
-					"title": {
-						"type": "string"
-					},
-					"url": {
-						"type": "string",
-						"index": "not_analyzed"
-					}
-				}
+	"settings": {
+		"analysis": {
+			"char_filter": {
+	      "quotes": {
+	        "type": "mapping",
+	    		"mappings": [
+	        	"\\u0091=>\\u0027",
+	          "\\u0092=>\\u0027",
+	          "\\u2018=>\\u0027",
+	          "\\u2019=>\\u0027",
+	          "\\u201B=>\\u0027"
+	        ]
+	      }
+	    },
+			"filter":{
+				 "filter_shingle":{
+						"type":"shingle",
+						"max_shingle_size":2,
+						"min_shingle_size":2,
+						"output_unigrams":false
+				 },
+				 	"english_stop": {
+          	"type":       "stop",
+          	"stopwords":  "_english_"
+	        },
+	        "english_stemmer": {
+	          "type":       "stemmer",
+	          "language":   "english"
+	        },
+	        "english_possessive_stemmer": {
+	          "type":       "stemmer",
+	          "language":   "possessive_english"
+	        }
 			},
-			"tor": {
-				"properties": {
-					"domain": {
-						"type": "string",
-						"index": "not_analyzed"
-					},
-					"h1": {
-						"type": "string"
-					},
-					"h2": {
-						"type": "string"
-					},
-					"header": {
-						"properties": {
-							"Accept-Ranges": {
-								"type": "string"
-							},
-							"Access-Control-Allow-Credentials": {
-								"type": "string"
-							},
-							"Access-Control-Allow-Credentialsi": {
-								"type": "string"
-							},
-							"Access-Control-Allow-Headers": {
-								"type": "string"
-							},
-							"Access-Control-Allow-Methods": {
-								"type": "string"
-							},
-							"Access-Control-Allow-Origin": {
-								"type": "string"
-							},
-							"Access-Control-Expose-Headers": {
-								"type": "string"
-							},
-							"Access-Control-Max-Age": {
-								"type": "string"
-							},
-							"Age": {
-								"type": "string"
-							},
-							"Allow": {
-								"type": "string"
-							},
-							"Alt-Svc": {
-								"type": "string"
-							},
-							"Alternate-Protocol": {
-								"type": "string"
-							},
-							"Bitcoin-Payment-Uri": {
-								"type": "string"
-							},
-							"Cache-Control": {
-								"type": "string"
-							},
-							"Cf-Ray": {
-								"type": "string"
-							},
-							"Composed-By": {
-								"type": "string"
-							},
-							"Content-Disposition": {
-								"type": "string"
-							},
-							"Content-Language": {
-								"type": "string"
-							},
-							"Content-Location": {
-								"type": "string"
-							},
-							"Content-Script-Type": {
-								"type": "string"
-							},
-							"Content-Security-Policy": {
-								"type": "string"
-							},
-							"Content-Type": {
-								"type": "string"
-							},
-							"Date": {
-								"type": "string"
-							},
-							"Eatmor": {
-								"type": "string"
-							},
-							"Etag": {
-								"type": "string"
-							},
-							"Expires": {
-								"type": "string"
-							},
-							"Fart": {
-								"type": "string"
-							},
-							"Fastly-Debug-Digest": {
-								"type": "string"
-							},
-							"Frame-Options": {
-								"type": "string"
-							},
-							"Last-Modified": {
-								"type": "string"
-							},
-							"Link": {
-								"type": "string"
-							},
-							"Ms-Author-Via": {
-								"type": "string"
-							},
-							"Omgwtf": {
-								"type": "string"
-							},
-							"P3P": {
-								"type": "string"
-							},
-							"Pragma": {
-								"type": "string"
-							},
-							"Public-Key-Pins": {
-								"type": "string"
-							},
-							"Public-Key-Pins-Report-Only": {
-								"type": "string"
-							},
-							"Refresh": {
-								"type": "string"
-							},
-							"Server": {
-								"type": "string"
-							},
-							"Set-Cookie": {
-								"type": "string"
-							},
-							"Sogo-Request-Duration": {
-								"type": "string"
-							},
-							"Status": {
-								"type": "string"
-							},
-							"Strict-Transport-Security": {
-								"type": "string"
-							},
-							"Superkuh": {
-								"type": "string"
-							},
-							"Surrogate-Control": {
-								"type": "string"
-							},
-							"Tcn": {
-								"type": "string"
-							},
-							"Vary": {
-								"type": "string"
-							},
-							"Via": {
-								"type": "string"
-							},
-							"Warning": {
-								"type": "string"
-							},
-							"Wp-Super-Cache": {
-								"type": "string"
-							},
-							"X-Account-Management-Status": {
-								"type": "string"
-							},
-							"X-Aspnet-Version": {
-								"type": "string"
-							},
-							"X-Aspnetmvc-Version": {
-								"type": "string"
-							},
-							"X-Bender": {
-								"type": "string"
-							},
-							"X-Blog": {
-								"type": "string"
-							},
-							"X-Cache": {
-								"type": "string"
-							},
-							"X-Cache-Hits": {
-								"type": "string"
-							},
-							"X-Cache-Status": {
-								"type": "string"
-							},
-							"X-Cached": {
-								"type": "string"
-							},
-							"X-Clacks-Overhead": {
-								"type": "string"
-							},
-							"X-Contact": {
-								"type": "string"
-							},
-							"X-Content-Options": {
-								"type": "string"
-							},
-							"X-Content-Security-Policy": {
-								"type": "string"
-							},
-							"X-Content-Signature": {
-								"type": "string"
-							},
-							"X-Content-Type-Options": {
-								"type": "string"
-							},
-							"X-Debug": {
-								"type": "string"
-							},
-							"X-Diaspora-Version": {
-								"type": "string"
-							},
-							"X-Did-You-Know": {
-								"type": "string"
-							},
-							"X-Dns-Prefetch-Control": {
-								"type": "string"
-							},
-							"X-Dongs": {
-								"type": "string"
-							},
-							"X-Download-Options": {
-								"type": "string"
-							},
-							"X-Drupal-Cache": {
-								"type": "string"
-							},
-							"X-Fastcgi-Cache": {
-								"type": "string"
-							},
-							"X-Fb-Debug": {
-								"type": "string"
-							},
-							"X-Fb-Stats-Contexts": {
-								"type": "string"
-							},
-							"X-Frame-Options": {
-								"type": "string"
-							},
-							"X-Fry": {
-								"type": "string"
-							},
-							"X-Garden-Version": {
-								"type": "string"
-							},
-							"X-Generator": {
-								"type": "string"
-							},
-							"X-Git-Revision": {
-								"type": "string"
-							},
-							"X-Git-Update": {
-								"type": "string"
-							},
-							"X-Handled-By": {
-								"type": "string"
-							},
-							"X-Hello-Human": {
-								"type": "string"
-							},
-							"X-Hire-Me": {
-								"type": "string"
-							},
-							"X-Jb-App": {
-								"type": "string"
-							},
-							"X-Leela": {
-								"type": "string"
-							},
-							"X-Memcached-Queries": {
-								"type": "string"
-							},
-							"X-Memcached-Time-Spent": {
-								"type": "string"
-							},
-							"X-Micro-Cache": {
-								"type": "string"
-							},
-							"X-Mod-Pagespeed": {
-								"type": "string"
-							},
-							"X-Mula-Cache": {
-								"type": "string"
-							},
-							"X-Ob_Mode": {
-								"type": "string"
-							},
-							"X-Pad": {
-								"type": "string"
-							},
-							"X-Page-Speed": {
-								"type": "string"
-							},
-							"X-Permitted-Cross-Domain-Policies": {
-								"type": "string"
-							},
-							"X-Pingback": {
-								"type": "string"
-							},
-							"X-Powered-By": {
-								"type": "string"
-							},
-							"X-Proxy-Cache": {
-								"type": "string"
-							},
-							"X-Python-Time-Spent": {
-								"type": "string"
-							},
-							"X-Queued-Time-Spent": {
-								"type": "string"
-							},
-							"X-Rack-Cache": {
-								"type": "string"
-							},
-							"X-Request-Id": {
-								"type": "string"
-							},
-							"X-Robots-Tag": {
-								"type": "string"
-							},
-							"X-Rocket-Chat-Version": {
-								"type": "string"
-							},
-							"X-Runtime": {
-								"type": "string"
-							},
-							"X-Served-By": {
-								"type": "string"
-							},
-							"X-Session-Reinit": {
-								"type": "string"
-							},
-							"X-Spip-Cache": {
-								"type": "string"
-							},
-							"X-Sql-Queries": {
-								"type": "string"
-							},
-							"X-Sql-Time-Spent": {
-								"type": "string"
-							},
-							"X-Sso-Wat": {
-								"type": "string"
-							},
-							"X-Tor-Is-Awesome": {
-								"type": "string"
-							},
-							"X-Tor2Web-Cache": {
-								"type": "string"
-							},
-							"X-Ua-Compatible": {
-								"type": "string"
-							},
-							"X-Ua-Device": {
-								"type": "string"
-							},
-							"X-Validate": {
-								"type": "string"
-							},
-							"X-Varnish": {
-								"type": "string"
-							},
-							"X-Varnish-Age": {
-								"type": "string"
-							},
-							"X-Varnish-Ttl": {
-								"type": "string"
-							},
-							"X-Webkit-Csp": {
-								"type": "string"
-							},
-							"X-Xhr-Current-Location": {
-								"type": "string"
-							},
-							"X-Xrds-Location": {
-								"type": "string"
-							},
-							"X-Xss-Protection": {
-								"type": "string"
-							},
-							"Xg-Nginx-Cache": {
-								"type": "string"
-							}
+			"analyzer": {
+				"url": {
+					"type": "custom",
+					"char_filter": ["html_strip"],
+					"tokenizer": "lowercase",
+					"filter": ["stop"]
+				},
+				"raw_plain": {
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "stop"]
+				},
+				"raw_html": {
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "stop"]
+				},
+				"english_plain": {
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": [
+						"english_possessive_stemmer",
+						"lowercase",
+						"english_stop",
+						"english_stemmer"
+					]
+				},
+				"english_html": {
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": [
+						"english_possessive_stemmer",
+						"lowercase",
+						"english_stop",
+						"english_stemmer"
+					]
+				},
+				"shingle_plain":{
+					"type": "custom",
+					"char_filter": ["quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "filter_shingle"]
+				},
+				"shingle_html":{
+					"type": "custom",
+					"char_filter": ["html_strip", "quotes"],
+					"tokenizer": "standard",
+					"filter": ["lowercase", "filter_shingle"]
+				}
+			}
+		}
+	},
+	"mappings": {
+		"tor": {
+			"properties": {
+				"url": {
+					"type": "string",
+					"analyzer": "url"
+				},
+
+				"title": {
+					"type": "string",
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"meta": {
+					"type": "string"	,
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"anchors": {
+					"type": "string",
+					"copy_to": "fancy",
+					"index": "not_analyzed"
+				},
+				"fancy": {
+					"type": "string",
+					"analyzer": "raw_plain",
+					"fields": {
+						"shingles": {
+							"type": "string",
+							"analyzer": "shingle_plain"
+						},
+						"english": {
+							"type": "string",
+							"analyzer": "english_plain"
 						}
-					},
-					"links": {
-						"properties": {
-							"link": {
-								"type": "string",
-								"index": "not_analyzed"
-							},
-							"link_name": {
-								"type": "string"
-							}
-						}
-					},
-					"text": {
-						"type": "string"
-					},
-					"timestamp": {
-						"type": "date",
-						"format": "dateOptionalTime"
-					},
-					"title": {
-						"type": "string"
-					},
-					"url": {
-						"type": "string",
-						"index": "not_analyzed"
 					}
+				},
+
+				"content": {
+					"type": "string",
+					"analyzer": "raw_html",
+					"fields": {
+						"shingles": {
+							"type": "string",
+							"analyzer": "shingle_html"
+						},
+						"english": {
+							"type": "string",
+							"analyzer": "english_html"
+						}
+					}
+				},
+
+				"domain": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"lang": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"content_type": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"content_checksum": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+
+				"code": {
+					"type": "short"
+				},
+				"is_fake": {
+					"type": "boolean"
+				},
+				"is_banned": {
+					"type": "boolean"
+				},
+
+				"updated_on": {
+					"type": "date",
+					"format": "dateOptionalTime"
+				},
+				"last_seen": {
+					"type": "date",
+					"format": "dateOptionalTime"
+				},
+
+				"authority": {
+					"type": "double"
+				},
+				"visits": {
+					"type": "long"
+				},
+				"clicks": {
+					"type": "long"
+				},
+				"backlinks": {
+					"type": "long"
 				}
 			}
 		}
