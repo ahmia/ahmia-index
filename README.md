@@ -27,6 +27,7 @@ MAX_LOCKED_MEMORY=unlimited
 
 ```
 bootstrap.mlockall: true
+script.engine.groovy.inline.aggs: true
 ```
 
 ## Start the service
