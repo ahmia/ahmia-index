@@ -2,7 +2,7 @@
 Ahmia search engine use elasticsearch to index content.
 
 ## Installation
-Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html))
+Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html)
 
 ## Configuration
 Default configuration is enough to run index in dev mode. Here is suggestion for a more secure configuration
