@@ -12,5 +12,5 @@ while read domain; do
 done < $inputfile
 
 # Call elasticsearch cleaning and optimatization
-curl -XPOST "http://localhost/crawling/_forcemerge?only_expunge_deletes=true"
+curl -XPOST "http://localhost:9200/crawl/_forcemerge?only_expunge_deletes=true"
 
