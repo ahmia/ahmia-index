@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # We want to filter domains which are in this file
-$inputfile=filter_these_domains.txt
+inputfile="filter_these_domains.txt"
 
 # Read line by line
 while read domain; do
