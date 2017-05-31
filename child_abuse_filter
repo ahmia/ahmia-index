@@ -1,2 +1,0 @@
-#!usr/bin/python
-torsocks python auto_blacklisting.py

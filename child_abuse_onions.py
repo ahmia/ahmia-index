@@ -27,11 +27,13 @@ def get_abuse_onions():
             ss=ss.next
             while ss.name!="h3":
                 if ss.name=="a" and ss.get('href')[0]!='/':
-                    urls.append(ss.get('href'))
-                    #print(ss.get('href'))
+                    url=ss.get('href')[7:29]
+                    # Add onion domains
+                    if len(url) == 22 and url[-6:] == ".onion":
+                        urls.append(url)
                 ss=ss.next
-    urls[:] = (elem[7:29] for elem in urls)
-    return urls
-    #print (urls)
+    urls = list(set(urls)) # Remove duplicates from the list
+    for domain in urls:
+        print(domain)
 if __name__ == '__main__':
    get_abuse_onions()
