@@ -43,3 +43,8 @@ Please do this when running for the first time
 ```sh
 $ curl -XPUT -i "localhost:9200/crawl/" -d "@./mappings.json"
 ```
+##Crontab for Auto Blacklisting of Child Abuse Websites (torsocks required)
+```
+* * * * 0 /child_abuse_filter
+
+```
