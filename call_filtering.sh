@@ -6,8 +6,8 @@ inputfile="filter_these_domains.txt"
 # Read line by line
 while read domain; do
     if [ ! -z "$domain" ]; then
-        python3 filter.py $domain
-        python3 filter.py $domain
+        python3 filter_onions.py $domain
+        python3 filter_onions.py $domain
     fi
 done < $inputfile
 
