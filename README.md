@@ -43,3 +43,8 @@ Please do this when running for the first time
 ```sh
 $ curl -XPUT -i "localhost:9200/crawl/" -d "@./mappings.json"
 ```
+## Crontab for Auto Blacklisting of Child Abuse Websites (torsocks required)
+```
+0 22 * * * cd /your/ahmia/folder/ && torsocks python child_abuse_onions.py > filter_these_domains.txt && bash call_filtering.sh
+
+```

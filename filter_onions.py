@@ -28,7 +28,7 @@ def main():
 
 def filterContent(domain):
     """ Bans certain onions """
-    INDEX_NAME = "crawling"
+    INDEX_NAME = "crawl"
     url = "http://localhost:9200/" + INDEX_NAME # URL of the new index
     print('\033[1;30m Test that Elasticsearch is available: %s \033[1;m' % url)
     try:
