@@ -102,6 +102,14 @@
                                         "index": "not_analyzed"
                                 },
 
+                                "h1": {
+                                        "type": "string"
+                                },
+
+                                "raw_title": {
+                                        "type": "string"
+                                },
+
 				"title": {
 					"type": "string",
 					"copy_to": "fancy",
