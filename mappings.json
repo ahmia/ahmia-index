@@ -97,6 +97,11 @@
 					"analyzer": "url"
 				},
 
+                                "raw_url": {
+                                        "type": "string",
+                                        "index": "not_analyzed"
+                                },
+
 				"title": {
 					"type": "string",
 					"copy_to": "fancy",
@@ -126,6 +131,10 @@
 						}
 					}
 				},
+
+                                "raw_text": {
+                                        "type": "string"
+                                },
 
 				"content": {
 					"type": "string",
