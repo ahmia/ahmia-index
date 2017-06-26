@@ -42,6 +42,12 @@ Please do this when running for the first time
 
 ```sh
 $ curl -XPUT -i "localhost:9200/crawl/" -d "@./mappings.json"
+# If ES 5.x
+$ curl -XPUT "localhost:9200/_cluster/settings" -d '{
+    "transient" : {
+        "script.max_compilations_per_minute" : 200
+    }
+}'
 ```
 ## Crontab for Auto Blacklisting of Child Abuse Websites (torsocks required)
 ```
