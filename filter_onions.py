@@ -7,8 +7,8 @@ import requests
 def printErrorAndQuit():
     """Printing the usage information"""
     print("Filters an onion domain from the index.\n")
-    print("Usage: python3 filter.py some.onion")
-    print("Example: python3 filter.py msydqstlz2kzerdg.onion\n")
+    print("Usage: python3 filter_onions.py some.onion")
+    print("Example: python3 filter_onions.py msydqstlz2kzerdg.onion\n")
     sys.exit()
 
 def main():

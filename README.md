@@ -42,9 +42,18 @@ Please do this when running for the first time
 $ curl -XPUT -i "localhost:9200/crawl/" -d "@./mappings.json"
 ```
 
+Setup blacklisting
+------------------
+
+```sh
+$ virtualenv -p python3 venv3
+$ source venv3/bin/activate
+$ pip install -r requirements.txt
+```
+
 ## Crontab for Auto Blacklisting of Child Abuse Websites (torsocks required)
 
 ```
-0 22 * * * cd /your/ahmia/folder/ && torsocks python child_abuse_onions.py > filter_these_domains.txt && bash call_filtering.sh
-
+# Every day
+0 22 * * * cd /usr/local/home/juha/ahmia-index/ && torsocks ./venv/bin/python child_abuse_onions.py > filter_these_domains.txt && bash call_filtering.sh
 ```
