@@ -7,8 +7,8 @@ import requests
 def printErrorAndQuit():
     """Printing the usage information"""
     print("Filters an onion domain from the index.\n")
-    print("Usage: python3 filter.py some.onion")
-    print("Example: python3 filter.py msydqstlz2kzerdg.onion\n")
+    print("Usage: python3 filter_onions.py some.onion")
+    print("Example: python3 filter_onions.py msydqstlz2kzerdg.onion\n")
     sys.exit()
 
 def main():
@@ -28,7 +28,7 @@ def main():
 
 def filterContent(domain):
     """ Bans certain onions """
-    INDEX_NAME = "crawling"
+    INDEX_NAME = "crawl"
     url = "http://localhost:9200/" + INDEX_NAME # URL of the new index
     print('\033[1;30m Test that Elasticsearch is available: %s \033[1;m' % url)
     try:

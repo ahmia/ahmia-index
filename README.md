@@ -1,15 +1,15 @@
 # Ahmia index
-Ahmia search engine use elasticsearch to index content.
+Ahmia search engine uses Elasticsearch 5.4.3 to index content.
 
 ## Installation
-Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
+Please install elastic search from the official repository. Elasticsearch 2.4 and 5.x both work.
 
 ## Configuration
 Default configuration is enough to run index in dev mode. Here is suggestion for a more secure configuration
 
 ### /etc/security/limits.conf
 
-```
+```sh
 elasticsearch - nofile unlimited
 elasticsearch - memlock unlimited
 ```
@@ -17,18 +17,17 @@ elasticsearch - memlock unlimited
 ### /etc/default/elasticsearch
 on CentOS/RH: /etc/sysconfig/elasticsearch
 
-```
-ES_HEAP_SIZE=2g # Half of your memory, other half is for Lucene
+```sh
 MAX_OPEN_FILES=1065535
 MAX_LOCKED_MEMORY=unlimited
 ```
 
-### /etc/elasticsearch/elasticsearch.yml
+### For ES 5.4.3 /etc/elasticsearch/jvm.options
 
-```
-bootstrap.mlockall: true
-script.engine.groovy.inline.update: on
-script.engine.groovy.inline.aggs: on
+```sh
+# For ES 5.4.3! Half of your memory, other half is for Lucene
+-Xms3g
+-Xmx3g
 ```
 
 ## Start the service
@@ -60,4 +59,20 @@ curl -XPOST 'http://localhost:9200/_aliases' -d '
         { "add" : { "index" : "crawl-2017-12", "alias" : "latest-crawl" } }
     ]
 }'
+```
+
+Setup blacklisting
+------------------
+
+```sh
+$ virtualenv -p python3 venv3
+$ source venv3/bin/activate
+$ pip install -r requirements.txt
+```
+
+## Crontab for Auto Blacklisting of Child Abuse Websites (torsocks required)
+
+```sh
+# Every day
+0 22 * * * cd /usr/local/home/juha/ahmia-index/ && torsocks ./venv/bin/python child_abuse_onions.py > filter_these_domains.txt && bash call_filtering.sh
 ```
