@@ -93,87 +93,79 @@
 		"tor": {
 			"properties": {
 				"url": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "url"
 				},
 
                                 "raw_url": {
-                                        "type": "string",
-                                        "index": "not_analyzed"
+                                        "type": "keyword"
                                 },
 
                                 "h1": {
-                                        "type": "string"
+                                        "type": "text"
                                 },
 
                                 "raw_title": {
-                                        "type": "string"
+                                        "type": "text"
                                 },
 
 				"title": {
-					"type": "string",
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword",
+					"copy_to": "fancy"
 				},
 				"meta": {
-					"type": "string"	,
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword"	,
+					"copy_to": "fancy"
 				},
 				"anchors": {
-					"type": "string",
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword",
+					"copy_to": "fancy"
 				},
 				"fancy": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "raw_plain",
 					"fields": {
 						"shingles": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "shingle_plain"
 						},
 						"english": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "english_plain"
 						}
 					}
 				},
 
                                 "raw_text": {
-                                        "type": "string"
+                                        "type": "text"
                                 },
 
 				"content": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "raw_html",
 					"fields": {
 						"shingles": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "shingle_html"
 						},
 						"english": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "english_html"
 						}
 					}
 				},
 
 				"domain": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"lang": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"content_type": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"content_checksum": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 
 				"code": {
@@ -212,70 +204,63 @@
 		"i2p": {
 			"properties": {
 				"url": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "url"
 				},
 
 				"title": {
-					"type": "string",
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword",
+					"copy_to": "fancy"
 				},
 				"meta": {
-					"type": "string"	,
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword",
+					"copy_to": "fancy"
 				},
 				"anchors": {
-					"type": "string",
-					"copy_to": "fancy",
-					"index": "not_analyzed"
+					"type": "keyword",
+					"copy_to": "fancy"
 				},
 				"fancy": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "raw_plain",
 					"fields": {
 						"shingles": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "shingle_plain"
 						},
 						"english": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "english_plain"
 						}
 					}
 				},
 
 				"content": {
-					"type": "string",
+					"type": "text",
 					"analyzer": "raw_html",
 					"fields": {
 						"shingles": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "shingle_html"
 						},
 						"english": {
-							"type": "string",
+							"type": "text",
 							"analyzer": "english_html"
 						}
 					}
 				},
 
 				"domain": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"lang": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"content_type": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 				"content_checksum": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "keyword"
 				},
 
 				"code": {
