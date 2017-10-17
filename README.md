@@ -14,7 +14,7 @@ elasticsearch - nofile unlimited
 elasticsearch - memlock unlimited
 ```
 
-### /etc/default/elasticsearch 
+### /etc/default/elasticsearch
 on CentOS/RH: /etc/sysconfig/elasticsearch
 
 ```
@@ -42,4 +42,22 @@ Please do this when running for the first time
 
 ```sh
 $ curl -XPUT -i "localhost:9200/crawl/" -d "@./mappings.json"
+```
+
+Index rotation is possible
+--------------------------
+
+- This is just an example
+- Crawl to the crawl-YEAR-MONTH index
+- Point latest-crawl to the latests indexes
+
+```sh
+curl -XPOST 'http://localhost:9200/_aliases' -d '
+{
+    "actions" : [
+        { "remove" : { "index" : "crawl-2017-10", "alias" : "latest-crawl" } },
+        { "add" : { "index" : "crawl-2017-11", "alias" : "latest-crawl" } },
+        { "add" : { "index" : "crawl-2017-12", "alias" : "latest-crawl" } }
+    ]
+}'
 ```
