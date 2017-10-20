@@ -13,7 +13,7 @@ def previous_month(dt):
    return datetime(dt.year, dt.month, 1) - timedelta(days=1)
 
 def point_to_new_indexes():
-    es_connection = "http://localhost:9200/"
+    es_url = "http://localhost:9200/_aliases?pretty"
     actions_json = {"actions":[]}
 
     cmd = { "remove" : { "index" : index_months(2), "alias" : "latest-crawl" } }
@@ -25,7 +25,10 @@ def point_to_new_indexes():
     cmd = { "add" : { "index" : index_months(), "alias" : "latest-crawl" } }
     actions_json["actions"].append(cmd)
 
-    requests.post(es_connection+"_aliases?pretty", data=actions_json)
+    header = {'Content-Type': 'application/json'}
+    resp = requests.post(es_url, json=actions_json, headers=header)
+    print(resp.status_code)
+    print(resp.text)
 
 if __name__ == '__main__':
    point_to_new_indexes()

@@ -51,3 +51,9 @@ or
 ```sh
 $ bash setup_index.sh
 ```
+
+## Keep crawl-latest pointed to latest monthly indexes
+
+```sh
+$ python3 point_to_indexes.py
+```
