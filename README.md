@@ -57,3 +57,9 @@ $ bash setup_index.sh
 ```sh
 $ python3 point_to_indexes.py
 ```
+
+## Filter some abuse sites
+
+```sh
+$ bash call_filtering.sh
+```

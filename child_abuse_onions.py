@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 # socket.create_connection = create_connection
 
 def get_abuse_onions():
-    html = urllib2.urlopen("http://gxamjbnu7uknahng.onion/wiki/index.php/Hard_Candy")
+    html = urllib2.urlopen("http://uhwikih256ynt57t.onion/wiki/index.php/Hard_Candy")
     soup = BeautifulSoup(html, "html.parser")
     snippet = soup.find_all('h1')
     urls=[]

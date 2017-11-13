@@ -28,8 +28,9 @@ def main():
 
 def filterContent(domain):
     """ Bans certain onions """
-    INDEX_NAME = "crawl"
-    url = "http://localhost:9200/" + INDEX_NAME # URL of the new index
+    INDEX_NAME = "latest-crawl"
+    ES = "http://localhost:9200/"
+    url = ES + INDEX_NAME # URL of the new index
     print('\033[1;30m Test that Elasticsearch is available: %s \033[1;m' % url)
     try:
         r = requests.head(url)
@@ -51,11 +52,11 @@ def filterContent(domain):
                     result = "%d/%d Filtering %s" % (index+1, total, target_url)
                     print('\033[1;30m ' + result + ' \033[1;m')
                     if index > 0:
-                        query = url + '/tor/' + hit['_id']
+                        query = ES + hit["_index"] + '/tor/' + hit['_id']
                         r = requests.delete(query)
                     else:
                         json_data = { "doc" : { "is_banned": 1 } }
-                        query = url + '/tor/' + hit['_id'] + '/_update'
+                        query = ES + hit["_index"] + '/tor/' + hit['_id'] + '/_update'
                         r = requests.post(query, json=json_data)
         else:
             print('\033[1;31m No search results! \033[1;m')
