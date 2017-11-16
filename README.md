@@ -63,3 +63,12 @@ $ python3 point_to_indexes.py
 ```sh
 $ bash call_filtering.sh
 ```
+
+## Crontab
+
+```sh
+# Every day
+50 09 * * * cd /usr/local/home/juha/ahmia-index && bash call_filtering.sh > ./filter.log 2>&1
+# Once a month
+10 04 16 * * cd /usr/local/home/juha/ahmia-index && ./venv3/bin/python point_to_indexes.py > ./change_alias.log 2>&1
+```
