@@ -37,6 +37,12 @@ script.engine.groovy.inline.aggs: on
 # systemctl start elasticsearch
 ```
 
+```sh
+curl -XPUT 'http://localhost:9200/_all/_settings?preserve_existing=true' -d '{
+  "index.max_result_window" : "30000"
+}'
+```
+
 ## Init mappings
 Please do this when running for the first time
 
