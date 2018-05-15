@@ -2,7 +2,17 @@
 Ahmia search engine use elasticsearch to index content.
 
 ## Installation
-Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
+* Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
+* Install *python3, python3-pip*.
+* Install python packages required, preferably in a virtualenv, with:
+```
+pip install -r requirements.txt
+```
+
+Ensure that you default version is python3:
+```
+python --version
+```
 
 ## Configuration
 Default configuration is enough to run index in dev mode. Here is suggestion for a more secure configuration
@@ -76,5 +86,5 @@ $ bash call_filtering.sh
 # Every day
 50 09 * * * cd /usr/local/home/juha/ahmia-index && bash call_filtering.sh > ./filter.log 2>&1
 # Once a month
-10 04 16 * * cd /usr/local/home/juha/ahmia-index && ./venv3/bin/python point_to_indexes.py > ./change_alias.log 2>&1
+10 04 16 * * cd /usr/local/home/juha/ahmia-index && python point_to_indexes.py > ./change_alias.log 2>&1
 ```
