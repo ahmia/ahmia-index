@@ -2,7 +2,7 @@
 Ahmia search engine use elasticsearch to index content.
 
 ## Installation
-* Please install elastic search from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
+* Please install elastic search 5.x from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elastic-stack/5.6/elastic-stack.html)
 * Install *python3, python3-pip*.
 * Install python packages required, preferably in a virtualenv, with:
 ```
@@ -68,10 +68,10 @@ or
 $ bash setup_index.sh
 ```
 
-## Keep crawl-latest pointed to latest monthly indexes
+## Keep latest-crawl pointed to latest monthly indexes
 
 ```sh
-$ python3 point_to_indexes.py
+$ python point_to_indexes.py
 ```
 
 ## Filter some abuse sites
