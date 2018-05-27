@@ -15,16 +15,29 @@ python --version
 ```
 
 ## Configuration
+
+`example.env` contains some default values that should work out of the box. Copy this to `.env` to create
+your own instance of environment settings:
+
+```
+cp example.env .env
+```
+
+Review the `.env` file to ensure that it fits your needs. Make any modifications needed there.
+
+
+### Elasticsearch
+
 Default configuration is enough to run index in dev mode. Here is suggestion for a more secure configuration
 
-### /etc/security/limits.conf
+#### /etc/security/limits.conf
 
 ```
 elasticsearch - nofile unlimited
 elasticsearch - memlock unlimited
 ```
 
-### /etc/default/elasticsearch
+#### /etc/default/elasticsearch
 on CentOS/RH: /etc/sysconfig/elasticsearch
 
 ```
@@ -33,7 +46,7 @@ MAX_OPEN_FILES=1065535
 MAX_LOCKED_MEMORY=unlimited
 ```
 
-### /etc/elasticsearch/elasticsearch.yml
+#### /etc/elasticsearch/elasticsearch.yml
 
 ```
 bootstrap.mlockall: true

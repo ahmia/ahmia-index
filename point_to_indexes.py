@@ -1,16 +1,19 @@
 from datetime import datetime, timedelta
+
 import requests
 
+import settings
 
-def __previous_month(dt):
+
+def _previous_month(dt):
     return datetime(dt.year, dt.month, 1) - timedelta(days=1)
 
 
-def __index_months(months_ago=0):
+def _index_months(months_ago=0):
     month = datetime.now()
     months_removed = 0
     while months_removed != months_ago:
-        month = __previous_month(month)
+        month = _previous_month(month)
         months_removed = months_removed + 1
     return month.strftime("crawl-%Y-%m")
 
@@ -20,7 +23,7 @@ def point_to_new_indexes():
         correspond to the last 3 months, and creates a new one for the current month
     """
 
-    es_url = "http://localhost:9200/_aliases?pretty"
+    es_aliases_url = "{}_aliases?pretty".format(settings.ES_URL)
 
     # Include current month to avoid a 404 in case the alias points already to current
     actions_json = {
@@ -29,7 +32,7 @@ def point_to_new_indexes():
     for i in (2, 1, 0):
         cmd = {
             "remove": {
-                "index": __index_months(i),
+                "index": _index_months(i),
                 "alias": "latest-crawl"
             }
         }
@@ -40,20 +43,20 @@ def point_to_new_indexes():
     }
 
     print("Removing old latest-crawl alias")
-    resp = requests.post(es_url, json=actions_json, headers=header)
+    resp = requests.post(es_aliases_url, json=actions_json, headers=header)
     print(resp.text)
 
     cmd = {
         "add": {
-            "index": __index_months(0),
+            "index": _index_months(0),
             "alias": "latest-crawl"
         }
     }
     actions_json = {
         "actions": [cmd]
     }
-    print("Making new alias: latest-crawl -> {0}".format(__index_months(0)))
-    resp = requests.post(es_url, json=actions_json, headers=header)
+    print("Making new alias: latest-crawl -> {0}".format(_index_months(0)))
+    resp = requests.post(es_aliases_url, json=actions_json, headers=header)
     print(resp.text)
 
 

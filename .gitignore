@@ -22,3 +22,6 @@ ENV/
 VENV/
 env.bak/
 venv.bak/
+
+# hidden folders
+.idea/
