@@ -19,7 +19,7 @@ def print_error_and_quit():
 def filter_content(domain):
     """ Bans certain onions """
 
-    url = settings.ES_URL + settings.ES_INDEX  # URL of the new index
+    url = settings.ES_URL + settings.ES_TOR_INDEX  # URL of the new index
     print('\033[1;30m Test that Elasticsearch is available: %s \033[1;m' % url)
     try:
         r = requests.head(url)
@@ -29,7 +29,7 @@ def filter_content(domain):
         sys.exit()
     print('\033[1;32m ---> Yes, Elasticsearch is available!\033[1;m')
 
-    query = '{0}/tor/_search?pretty&size=1000&q=domain:"{1}" AND NOT is_banned:1'.format(url, domain)
+    query = '{0}/_search?pretty&size=1000&q=domain:"{1}" AND NOT is_banned:1'.format(url, domain)
     print(query)
 
     r = requests.get(query)
@@ -43,13 +43,13 @@ def filter_content(domain):
                     result = "%d/%d Filtering %s" % (index+1, total, target_url)
                     print('\033[1;30m ' + result + ' \033[1;m')
                     if index > 0:
-                        query = settings.ES_URL + hit["_index"] + '/tor/' + hit['_id']
+                        query = settings.ES_URL + hit["_index"] + hit['_id']
                         requests.delete(query)
                     else:
                         json_data = {
                             "doc": {"is_banned": 1}
                         }
-                        query = settings.ES_URL + hit["_index"] + '/tor/' + hit['_id'] + '/_update'
+                        query = settings.ES_URL + hit["_index"] + hit['_id'] + '/_update'
                         requests.post(query, json=json_data)
         else:
             print('\033[1;31m No search results! \033[1;m')

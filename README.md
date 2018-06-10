@@ -2,7 +2,7 @@
 Ahmia search engine use elasticsearch to index content.
 
 ## Installation
-* Please install elastic search 5.x from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elastic-stack/5.6/elastic-stack.html)
+* Please install elastic search 6.2+ from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elastic-stack/6.2/elastic-stack.html)
 * Install *python3, python3-pip*.
 * Install python packages required, preferably in a virtualenv, with:
 ```
@@ -70,18 +70,22 @@ curl -XPUT 'http://localhost:9200/_all/_settings?preserve_existing=true' -d '{
 Please do this when running for the first time
 
 ```sh
-$ curl -XPUT -i "localhost:9200/crawl-2017-10/" -H 'Content-Type: application/json' -d "@./mappings.json"
-$ curl -XPUT -i "localhost:9200/crawl-2017-11/" -H 'Content-Type: application/json' -d "@./mappings.json"
-$ curl -XPUT -i "localhost:9200/crawl-2017-12/" -H 'Content-Type: application/json' -d "@./mappings.json"
-```
-
-or
-
-```sh
 $ bash setup_index.sh
 ```
 
-## Keep latest-crawl pointed to latest monthly indexes
+Alternatively you could set up the indices manually, somehow like this:
+
+```sh
+$ curl -XPUT -i "localhost:9200/tor-2018-01/" -H 'Content-Type: application/json' -d "@./mappings_tor.json"
+$ curl -XPUT -i "localhost:9200/i2p-2018-01/" -H 'Content-Type: application/json' -d "@./mappings_i2p.json"
+$ curl -XPUT -i "localhost:9200/tor-2018-02/" -H 'Content-Type: application/json' -d "@./mappings_tor.json"
+$ curl -XPUT -i "localhost:9200/i2p-2018-02/" -H 'Content-Type: application/json' -d "@./mappings_i2p.json"
+...
+...
+```
+
+## Keep `latest-tor`, `latest-i2p` aliases pointed to latest monthly indices
+This needs to be the first time you deploy and then once per month
 
 ```sh
 $ python point_to_indexes.py
