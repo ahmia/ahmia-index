@@ -2,6 +2,8 @@
 """ Filter some onions from the index """
 
 import sys
+from urllib.parse import urljoin
+
 import requests
 
 import settings
@@ -43,13 +45,15 @@ def filter_content(domain):
                     result = "%d/%d Filtering %s" % (index+1, total, target_url)
                     print('\033[1;30m ' + result + ' \033[1;m')
                     if index > 0:
-                        query = settings.ES_URL + hit["_index"] + hit['_id']
+                        query = urljoin(settings.ES_URL,
+                                        hit["_index"] + "/" + hit['_id'])
                         requests.delete(query)
                     else:
                         json_data = {
                             "doc": {"is_banned": 1}
                         }
-                        query = settings.ES_URL + hit["_index"] + hit['_id'] + '/_update'
+                        query = urljoin(settings.ES_URL,
+                                        hit["_index"] + "/" + hit['_id'] + '/_update')
                         requests.post(query, json=json_data)
         else:
             print('\033[1;31m No search results! \033[1;m')

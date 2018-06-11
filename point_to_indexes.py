@@ -12,7 +12,7 @@ def _previous_month(dt):
     return datetime(dt.year, dt.month, 1) - timedelta(days=1)
 
 
-def _index_months(months_ago=0):
+def index_months(months_ago=0):
     month = datetime.now()
     months_removed = 0
     while months_removed != months_ago:
@@ -31,22 +31,22 @@ def point_to_new_indexes():
     header = {'Content-Type': 'application/json'}
     actions_json = {"actions": []}
 
-    cmd = {"remove": {"index": "tor-" + _index_months(2), "alias": "latest-tor"}}
+    cmd = {"remove": {"index": "tor-" + index_months(2), "alias": "latest-tor"}}
     actions_json["actions"].append(cmd)
 
-    cmd = {"add": {"index": "tor-" + _index_months(1), "alias": "latest-tor"}}
+    cmd = {"add": {"index": "tor-" + index_months(1), "alias": "latest-tor"}}
     actions_json["actions"].append(cmd)
 
-    cmd = {"add": {"index": "tor-" + _index_months(), "alias": "latest-tor"}}
+    cmd = {"add": {"index": "tor-" + index_months(), "alias": "latest-tor"}}
     actions_json["actions"].append(cmd)
 
-    cmd = {"remove": {"index": "i2p-" + _index_months(2), "alias": "latest-i2p"}}
+    cmd = {"remove": {"index": "i2p-" + index_months(2), "alias": "latest-i2p"}}
     actions_json["actions"].append(cmd)
 
-    cmd = {"add": {"index": "i2p-" + _index_months(1), "alias": "latest-i2p"}}
+    cmd = {"add": {"index": "i2p-" + index_months(1), "alias": "latest-i2p"}}
     actions_json["actions"].append(cmd)
 
-    cmd = {"add": {"index": "i2p-" + _index_months(), "alias": "latest-i2p"}}
+    cmd = {"add": {"index": "i2p-" + index_months(), "alias": "latest-i2p"}}
     actions_json["actions"].append(cmd)
 
     # todo add latest-crawl to all of the above, to have a common alias for both tor & i2p crawls?
