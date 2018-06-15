@@ -31,7 +31,7 @@ def _print_results(response):
 endpoint = urljoin(settings.ES_URL, "_reindex/")
 print(endpoint)
 
-for i in range(3, 4):
+for i in range(0, 2):
     """ for the last 2 months migrate data to new indices """
 
     # copy crawl-yyyy-mm index data of mapping type 'tor' to tor-yyyy-mm
