@@ -1,7 +1,9 @@
 # Ahmia index
+
 Ahmia search engine use elasticsearch to index content.
 
 ## Installation
+
 * Please install elastic search 6.2+ from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elastic-stack/6.2/elastic-stack.html)
 * Install *python3, python3-pip*.
 * Install python packages required, preferably in a virtualenv, with:
