@@ -1,4 +1,5 @@
-import urllib2
+from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
 # import socks
 # import socket
@@ -16,7 +17,7 @@ from bs4 import BeautifulSoup
 
 
 def get_abuse_onions():
-    html = urllib2.urlopen("http://uhwikih256ynt57t.onion/wiki/index.php/Hard_Candy")
+    html = urlopen("http://uhwikih256ynt57t.onion/wiki/index.php/Hard_Candy")
     soup = BeautifulSoup(html, "html.parser")
     snippet = soup.find_all('h1')
     urls = []
