@@ -13,3 +13,5 @@ ES_I2P_INDEX = config('ES_I2P_INDEX', default="latest-i2p")
 
 # The current index/alias that holds both the onions and i2p addresses
 # ES_BOTH_INDEX = config('ES_BOTH_INDEX', default="latest-crawl")   # Currently UNUSED
+
+# todo improve the project structure ~ currently even relative imports dont work

@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 
 import requests
 
-# todo improve the project structure ~ currently even relative imports dont work
 import settings
 
 
@@ -29,30 +28,31 @@ def point_to_new_indexes():
 
     es_aliases_url = "{}_aliases?pretty".format(settings.ES_URL)
     header = {'Content-Type': 'application/json'}
-    actions_json = {"actions": []}
 
+    # remove old aliases
     cmd = {"remove": {"index": "tor-" + index_months(2), "alias": "latest-tor"}}
-    actions_json["actions"].append(cmd)
-
-    cmd = {"add": {"index": "tor-" + index_months(1), "alias": "latest-tor"}}
-    actions_json["actions"].append(cmd)
-
-    cmd = {"add": {"index": "tor-" + index_months(), "alias": "latest-tor"}}
-    actions_json["actions"].append(cmd)
-
-    cmd = {"remove": {"index": "i2p-" + index_months(2), "alias": "latest-i2p"}}
-    actions_json["actions"].append(cmd)
-
-    cmd = {"add": {"index": "i2p-" + index_months(1), "alias": "latest-i2p"}}
-    actions_json["actions"].append(cmd)
-
-    cmd = {"add": {"index": "i2p-" + index_months(), "alias": "latest-i2p"}}
-    actions_json["actions"].append(cmd)
-
-    # todo add latest-crawl to all of the above, to have a common alias for both tor & i2p crawls?
-
+    actions_json = {"actions": [cmd]}
     resp = requests.post(es_aliases_url, json=actions_json, headers=header)
     print("{0}\n{1}".format(resp.status_code, resp.text))
+
+    cmd = {"remove": {"index": "i2p-" + index_months(2), "alias": "latest-i2p"}}
+    actions_json = {"actions": [cmd]}
+    resp = requests.post(es_aliases_url, json=actions_json, headers=header)
+    print("{0}\n{1}".format(resp.status_code, resp.text))
+
+    for i in range(0, 1):   # last two months
+
+        # tor
+        cmd = {"add": {"index": "tor-" + index_months(i), "alias": "latest-tor"}}
+        actions_json = {"actions": [cmd]}
+        resp = requests.post(es_aliases_url, json=actions_json, headers=header)
+        print("{0}\n{1}".format(resp.status_code, resp.text))
+
+        # i2p
+        cmd = {"add": {"index": "i2p-" + index_months(i), "alias": "latest-i2p"}}
+        actions_json = {"actions": [cmd]}
+        resp = requests.post(es_aliases_url, json=actions_json, headers=header)
+        print("{0}\n{1}".format(resp.status_code, resp.text))
 
 
 if __name__ == '__main__':
