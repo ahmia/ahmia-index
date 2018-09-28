@@ -31,7 +31,7 @@ def filter_content(domain):
         sys.exit()
     print('\033[1;32m ---> Yes, Elasticsearch is available!\033[1;m')
 
-    query = '{0}/_search?pretty&size=1000&q=domain:"{1}" AND NOT is_banned:1'.format(url, domain)
+    query = '{0}/_search?pretty&size=1000&q=domain:"{1}"%20AND%20NOT%20is_banned:1'.format(url, domain)
     print(query)
 
     r = requests.get(query)
@@ -46,15 +46,19 @@ def filter_content(domain):
                     print('\033[1;30m ' + result + ' \033[1;m')
                     if index > 0:
                         query = urljoin(settings.ES_URL,
-                                        hit["_index"] + "/" + hit['_id'])
-                        requests.delete(query)
+                                        hit["_index"] + "/" + hit["_type"] + "/" + hit['_id'])
+                        res = requests.delete(query)
+                        if res.status_code != 200:
+                            print("UPDATE FAILED: %d" % res.status_code)
                     else:
                         json_data = {
                             "doc": {"is_banned": 1}
                         }
                         query = urljoin(settings.ES_URL,
-                                        hit["_index"] + "/" + hit['_id'] + '/_update')
-                        requests.post(query, json=json_data)
+                                        hit["_index"] + "/" + hit["_type"] + "/" + hit['_id'] + '/_update')
+                        res = requests.post(query, json=json_data)
+                        if res.status_code != 200:
+                            print("UPDATE FAILED: %d" % res.status_code)
         else:
             print('\033[1;31m No search results! \033[1;m')
     else:
