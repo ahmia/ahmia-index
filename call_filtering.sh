@@ -13,15 +13,15 @@ export $(cat .env | grep -v ^# | xargs)
 inputfile="filter_these_domains.txt"
 inputfile_uniq="filter_these_domains_unique.txt"
 
-torsocks python child_abuse_onions.py >> ${inputfile}
+torsocks python3 child_abuse_onions.py >> ${inputfile}
 
 sort filter_these_domains.txt | uniq > ${inputfile_uniq}
 
 # Read line by line
 while read domain; do
     if [ ! -z "$domain" ]; then
-        python filter_onions.py $domain
-        python filter_onions.py $domain
+        python3 filter_onions.py $domain
+        python3 filter_onions.py $domain
     fi
 done < ${inputfile_uniq}
 
