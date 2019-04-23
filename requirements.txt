@@ -2,6 +2,6 @@ beautifulsoup4==4.6.0
 certifi==2017.4.17
 chardet==3.0.4
 idna==2.5
-requests==2.18.1
-urllib3==1.21.1
+requests>=2.20.0
+urllib3>=1.24.2
 python-decouple==3.1
