@@ -32,10 +32,13 @@ def get_abuse_onions():
             ss = ss.next
             while ss.name != "h3":
                 if ss.name == "a" and ss.get('href')[0] != '/':
-                    url = ss.get('href')[7:29]
+                    url1 = ss.get('href')[7:29]
                     # Add onion domains
-                    if len(url) == 22 and url[-6:] == ".onion":
-                        urls.append(url)
+                    if len(url1) == 22 or len(url2) == 62:
+                        if url1[-6:] == ".onion":
+                            urls.append(url1)
+                        if url2[-6:] == ".onion":
+                            urls.append(url2)
                 ss = ss.next
 
     urls = list(set(urls))  # Remove duplicates from the list
