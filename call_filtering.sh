@@ -17,6 +17,8 @@ torsocks python3 child_abuse_onions.py >> ${inputfile}
 
 sort filter_these_domains.txt | uniq > ${inputfile_uniq}
 
+cp $inputfile_uniq $inputfile
+
 # Read line by line
 while read domain; do
     if [ ! -z "$domain" ]; then
