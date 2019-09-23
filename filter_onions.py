@@ -31,7 +31,7 @@ def filter_content(domain):
         sys.exit()
     print('\033[1;32m ---> Yes, Elasticsearch is available!\033[1;m')
 
-    query = '{0}/_search?pretty&size=1000&q=domain:"{1}"%20AND%20NOT%20is_banned:1'.format(url, domain)
+    query = '{0}/_search?pretty&size=1000&q=domain:*{1}%20AND%20NOT%20is_banned:1'.format(url, domain)
     print(query)
 
     r = requests.get(query)
