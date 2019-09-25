@@ -73,7 +73,7 @@ def main():
     try:
         if len(sys.argv) == 2:
             domain = str(sys.argv[1])
-            if len(domain) == 22 or len(domain) == 62:
+            if len(domain) >= 22:
                 filter_content(domain)
             else:
                 print_error_and_quit()
