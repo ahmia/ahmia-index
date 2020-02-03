@@ -15,6 +15,8 @@ inputfile_uniq="filter_these_domains_unique.txt"
 
 torsocks python3 child_abuse_onions.py >> ${inputfile}
 
+python3 gather_from_index.py >> ${inputfile}
+
 sort filter_these_domains.txt | uniq > ${inputfile_uniq}
 
 cp $inputfile_uniq $inputfile
