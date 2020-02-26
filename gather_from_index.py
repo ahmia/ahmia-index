@@ -1,6 +1,12 @@
 """ Filter websites based on keywords """
 import requests
 
+ALLOWED_DOMAINS = ["zqktlwi4fecvo6ri.onion",
+                   "tt3j2x4k5ycaa5zt.onion",
+                   "msydqstlz2kzerdg.onion",
+                   "3bbaaaccczcbdddz.onion",
+                   "donionsixbjtiohce24abfgsffo2l4tk26qx464zylumgejukfq2vead.onion"]
+
 def search(url):
     """
     Search domains for filtering.
@@ -12,7 +18,8 @@ def search(url):
         if not domain in domain_list:
             domain_list.append(domain)
         #print(hit["_source"].get("title", "").encode("ascii","ignore"))
-        print(domain)
+        if domain not in ALLOWED_DOMAINS:
+            print(domain)
 
 def main():
     """
