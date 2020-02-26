@@ -27,9 +27,13 @@ def main():
     """
     url = "http://localhost:9200/latest-tor/_search?pretty&size=9000&_source=title,domain"
     keywords_list = ['preteen', 'loli', 'lolita', 'jailbait', 'pthc', 'best cp',
-                     '"child porn"', '"kid porn"', '"child sex"', '"cp video"']
-    url = url + "&q=" + " OR ".join(keywords_list).replace(" ", "%20")
-    url = url + "%20AND%20porn"
+                     '"child porn"', '"kid porn"', '"child sex"', '"cp video"',
+                     '"nude children"', '"cp porn"', '"free child porn"', 'kinderporn',
+                     '"child rape"', '"toddler porn"', '"kids videos"', '"cp videos"',
+                     'lolilust', '"pedo porno"', '"pedo content"', 'underage', '"cp pack"',
+                     'loliporn', 'pedofamily', '"cp database"', '"pedo webcams"', 'lolitacity']
+    url = url + "&q=(" + " OR ".join(keywords_list).replace(" ", "%20")
+    url = url + ")%20AND%20(porn%20OR%20porno)"
     search(url)
 
 if __name__ == '__main__':
