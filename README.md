@@ -36,15 +36,23 @@ Default configuration is enough to run index in dev mode. Here is suggestion for
 
 ```
 elasticsearch - nofile unlimited
-elasticsearch - memlock unlimited
+elasticsearch soft memlock unlimited
+elasticsearch hard memlock unlimited
+```
+
+#### /etc/elasticsearch/jvm.options
+
+As a general rule, you should set -Xms and -Xmx to the SAME value, which should be 50% of your total available RAM.
+
+```
+-Xms15g
+-Xmx15g
 ```
 
 #### /etc/default/elasticsearch
-on CentOS/RH: /etc/sysconfig/elasticsearch
 
 ```
-ES_HEAP_SIZE=2g # Half of your memory, other half is for Lucene
-MAX_OPEN_FILES=1065535
+MAX_OPEN_FILES=unlimited
 MAX_LOCKED_MEMORY=unlimited
 ```
 
