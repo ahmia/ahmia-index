@@ -117,3 +117,14 @@ $ bash call_filtering.sh
 # On 16th of Each Month
 10 04 16 * * cd /home/juha/ahmia-index && python point_to_indexes.py --rm > ./remove_alias.log 2>&1
 ```
+
+## Keep Elasticsearch running: autorestart
+
+```sh
+sudo apt install restartd
+
+# Add the following line to /etc/restartd.conf
+elasticsearch "elasticsearch" "echo 'Elasticsearch is not running!' >>/tmp/restartd_restart.out && service elasticsearch restart >> /tmp/restartd_restart.out" "echo 'Elasticsearch is running!' >/tmp/restartd.out"
+
+sudo service restartd restart
+```
