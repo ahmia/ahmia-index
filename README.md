@@ -1,25 +1,20 @@
 # Ahmia index
 
-Ahmia search engine use elasticsearch to index content.
+The Ahmia search engine uses Elasticsearch indexes to save website text.
 
 ## Installation
 
-* Please install elastic search 6.2+ from the official repository thanks to the [official guide](https://www.elastic.co/guide/en/elastic-stack/6.2/elastic-stack.html)
-* Install *python3, python3-pip*.
-* Install python packages required, preferably in a virtualenv, with:
+* Install Elasticsearch 8
+* Install Python3 and pip
+* Install the Python packages required, preferably in a virtual environment, with:
 ```
 pip install -r requirements.txt
 ```
 
-Ensure that you default version is python3:
-```
-python --version
-```
-
 ## Configuration
 
-`example.env` contains some default values that should work out of the box. Copy this to `.env` to create
-your own instance of environment settings:
+`example.env` contains some default values that should work out of the box.
+Copy this to `.env` to create your own instance of environment settings:
 
 ```
 cp example.env .env
@@ -40,15 +35,6 @@ elasticsearch soft memlock unlimited
 elasticsearch hard memlock unlimited
 ```
 
-#### /etc/elasticsearch/jvm.options
-
-As a general rule, you should set -Xms and -Xmx to the SAME value, which should be 50% of your total available RAM.
-
-```
--Xms15g
--Xmx15g
-```
-
 #### /etc/default/elasticsearch
 
 ```
@@ -59,52 +45,53 @@ MAX_LOCKED_MEMORY=unlimited
 #### /etc/elasticsearch/elasticsearch.yml
 
 ```
-bootstrap.mlockall: true
-script.engine.groovy.inline.update: on
-script.engine.groovy.inline.aggs: on
+bootstrap.memory_lock: true
 ```
 
 ## Start the service
 
 ```sh
-# systemctl start elasticsearch
+sudo systemctl start elasticsearch
 ```
 
+## Give users permissions to use the HTTPS cert
+
+Any user on the system can read the certificate file,
+which is generally acceptable for a public certificate authority (CA) certificate
+as it does not contain sensitive private keys.
+
 ```sh
-curl -XPUT 'http://localhost:9200/_all/_settings?preserve_existing=true' -d '{
-  "index.max_result_window" : "30000"
-}'
+sudo mkdir -p /usr/local/share/ca-certificates/
+sudo cp /etc/elasticsearch/certs/http_ca.crt /usr/local/share/ca-certificates/
+sudo chmod 644 /usr/local/share/ca-certificates/http_ca.crt
 ```
 
 ## Init mappings
-Please do this when running for the first time
+Please set mappings running for the first time
 
 ```sh
-$ bash setup_index.sh
+bash setup_index.sh
 ```
 
-Alternatively you could set up the indices manually, somehow like this:
+Alternatively, you could set up the indices manually, somehow like this:
 
 ```sh
-$ curl -XPUT -i "localhost:9200/tor-2018-01/" -H 'Content-Type: application/json' -d "@./mappings_tor.json"
-$ curl -XPUT -i "localhost:9200/i2p-2018-01/" -H 'Content-Type: application/json' -d "@./mappings_i2p.json"
-$ curl -XPUT -i "localhost:9200/tor-2018-02/" -H 'Content-Type: application/json' -d "@./mappings_tor.json"
-$ curl -XPUT -i "localhost:9200/i2p-2018-02/" -H 'Content-Type: application/json' -d "@./mappings_i2p.json"
-...
-...
+curl -i --cacert /usr/local/share/ca-certificates/http_ca.crt -u elastic -XPUT \
+'https://localhost:9200/tor-2024-01/' \
+-H 'Content-Type: application/json' -d "@./mappings_tor.json"
 ```
 
-## Keep `latest-tor`, `latest-i2p` aliases pointed to latest monthly indices
+## Keep `latest-tor` aliase pointed to latest monthly indices
 This needs to be the first time you deploy and then once per month
 
 ```sh
-$ python point_to_indexes.py
+python point_to_indexes.py
 ```
 
 ## Filter some abuse sites
 
 ```sh
-$ bash call_filtering.sh
+bash call_filtering.sh
 ```
 
 ## Crontab

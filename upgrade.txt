@@ -1,6 +1,0 @@
-== Upgrade ElasticSearch ==
-
-The current ES schema is compatible with versions 5.6, 6.2+
-If Elasticsearch 7.x or later is going to be used, please do the following:
-* replace `doc` with `_doc` in mappings.json
-* perform the corresponding modifications (`doc` -> `_doc`) to ahmia-crawler, ahmia-site as well
