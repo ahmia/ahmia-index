@@ -9,7 +9,7 @@ fi
 # Parse the environment variables from .env file, ignoring the comments
 export $(cat .env | grep -v ^# | xargs)
 
-curl --cacert /etc/elasticsearch/certs/http_ca.crt --user ${ES_USERNAME}:${ES_PASSWORD} \
+curl --cacert ${ES_CA_CERTS} --user ${ES_USERNAME}:${ES_PASSWORD} \
 -XPUT "${ES_URL}_ingest/pipeline/convert_boolean" \
 -H 'Content-Type: application/json' -d'
 {
@@ -23,19 +23,19 @@ curl --cacert /etc/elasticsearch/certs/http_ca.crt --user ${ES_USERNAME}:${ES_PA
   ]
 }'
 
-for YEAR in {2018..2030}; do
+for YEAR in {2018..2024}; do
   for MONTH in 01 02 03 04 05 06 07 08 09 10 11 12; do
     INDEX_NAME="tor-$YEAR-$MONTH"
     echo ""
     echo $INDEX_NAME
     echo ""
 
-    sleep 10
+    sleep 3
 
     JSON_PAYLOAD=$(cat <<EOF
 {
   "source": {
-    "size": 100,
+    "size": 50,
     "remote": {
       "host": "http://localhost:19200"
     },
@@ -47,13 +47,19 @@ for YEAR in {2018..2030}; do
   "dest": {
     "index": "${INDEX_NAME}",
     "pipeline": "convert_boolean"
+  },
+  "script": {
+    "source": "if (ctx._source.containsKey('raw_text')) {ctx._source.remove('raw_text');} if (ctx._source.containsKey('raw_title')) {ctx._source.remove('raw_title');} if (ctx._source.containsKey('raw_url')) {ctx._source.remove('raw_url');}",
+    "lang": "painless"
   }
 }
 EOF
 )
 
-    curl --cacert /etc/elasticsearch/certs/http_ca.crt --user ${ES_USERNAME}:${ES_PASSWORD} \
+    curl --cacert ${ES_CA_CERTS} --user ${ES_USERNAME}:${ES_PASSWORD} \
     -XPOST "${ES_URL}_reindex?pretty" \
     -H 'Content-Type: application/json' -d "$JSON_PAYLOAD"
+
+    echo ""
   done
 done
