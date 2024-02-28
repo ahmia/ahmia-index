@@ -48,6 +48,13 @@ MAX_LOCKED_MEMORY=unlimited
 bootstrap.memory_lock: true
 ```
 
+#### /etc/elasticsearch/jvm.options
+
+```
+-Xms15g
+-Xmx15g
+```
+
 ## Start the service
 
 ```sh
