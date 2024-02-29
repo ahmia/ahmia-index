@@ -14,7 +14,7 @@ def search(es, domain_list, keywords_list):
     Search domains for filtering.
     """
     query = {
-        "size": 9000,
+        "size": 30000,
         "_source": ["title", "domain"],
         "query": {
             "bool": {

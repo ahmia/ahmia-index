@@ -13,7 +13,6 @@ def print_error_and_quit():
 
 def filter_content(es, domain):
     """ Bans certain onions """
-    index_name = settings.ES_TOR_INDEX  # Assuming this is defined in your settings.py
     try:
         # Query to find documents matching the domain
         query = {
@@ -24,21 +23,22 @@ def filter_content(es, domain):
                         {"match": {"domain": domain}}
                     ],
                     "must_not": [
-                        {"match": {"is_banned": "1"}}
+                        {"match": {"is_banned": True}}
                     ]
                 }
             }
         }
-        response = es.search(index=index_name, body=query)
+        response = es.search(index=settings.ES_TOR_INDEX, body=query)
         hits = response["hits"]["hits"]
         total = len(hits)
         print(f"Found {total} documents to update.")
 
         for index, hit in enumerate(hits):
             doc_id = hit['_id']
+            index_name = hit['_index']
             print(f"{index+1}/{total} - Updating document ID: {doc_id}")
-            # Update document to set is_banned to 1
-            es.update(index=index_name, id=doc_id, body={"doc": {"is_banned": 1}})
+            # Update document to set is_banned to True
+            es.update(index=index_name, id=doc_id, body={"doc": {"is_banned": True}})
             print(f"Document {doc_id} updated.")
 
         print("Filtered the content.")

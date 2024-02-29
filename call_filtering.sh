@@ -29,9 +29,3 @@ while read domain; do
         fi
     fi
 done < ${inputfile_uniq}
-
-# Call elasticsearch cleaning and optimatization
-echo "cleaning "
-echo "${ES_URL}${ES_TOR_INDEX}/_forcemerge?only_expunge_deletes=true"
-
-curl -XPOST "${ES_URL}${ES_TOR_INDEX}/_forcemerge?only_expunge_deletes=true"
