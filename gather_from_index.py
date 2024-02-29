@@ -24,7 +24,7 @@ def search(es, domain_list, keywords_list):
             }
         }
     }
-    resp = es.options(request_timeout=90).search(index="latest-tor", body=query)
+    resp = es.options(request_timeout=90).search(index=settings.ES_TOR_INDEX, body=query)
     hits = resp['hits']['hits']
     for hit in hits:
         domain = hit.get("_source", {}).get("domain", "")

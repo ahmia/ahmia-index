@@ -17,7 +17,7 @@ def filter_content(es, domain):
     try:
         # Query to find documents matching the domain
         query = {
-            "size": 9000,
+            "size": 30000,
             "query": {
                 "bool": {
                     "must": [
