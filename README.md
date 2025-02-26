@@ -7,8 +7,12 @@ The Ahmia search engine uses Elasticsearch indexes to save website text.
 * Install Elasticsearch 8
 * Install Python3 and pip
 * Install the Python packages required, preferably in a virtual environment, with:
-```
+
+```sh
+python3 -m virtualenv venv3
+source venv3/bin/activate
 pip install -r requirements.txt
+```
 ```
 
 ## Configuration
@@ -77,6 +81,7 @@ sudo chmod 644 /usr/local/share/ca-certificates/http_ca.crt
 Please set mappings running for the first time
 
 ```sh
+source venv3/bin/activate
 bash setup_index.sh
 ```
 
@@ -92,12 +97,14 @@ curl -i --cacert /usr/local/share/ca-certificates/http_ca.crt -u elastic -XPUT \
 This needs to be the first time you deploy and then once per month
 
 ```sh
+source venv3/bin/activate
 python point_to_indexes.py
 ```
 
 ## Filter some abuse sites
 
 ```sh
+source venv3/bin/activate
 bash call_filtering.sh
 ```
 
@@ -105,11 +112,11 @@ bash call_filtering.sh
 
 ```sh
 # Execute child abuse text filtering over the index every hour
-30 * * * * cd /home/juha/ahmia-index && bash wrap_filtering.sh > ./crontab_filter.log 2>&1
+30 * * * * cd /home/juha/ahmia-index && source venv3/bin/activate && bash wrap_filtering.sh > ./crontab_filter.log 2>&1
 # First of Each Month:
-10 04 01 * * cd /home/juha/ahmia-index && python point_to_indexes.py --add > ./add_alias.log 2>&1
+10 04 01 * * cd /home/juha/ahmia-index && source venv3/bin/activate && python point_to_indexes.py --add > ./add_alias.log 2>&1
 # On 6th of Each Month
-10 04 06 * * cd /home/juha/ahmia-index && python point_to_indexes.py --rm > ./remove_alias.log 2>&1
+10 04 06 * * cd /home/juha/ahmia-index && source venv3/bin/activate && python point_to_indexes.py --rm > ./remove_alias.log 2>&1
 ```
 
 ## Keep Elasticsearch running: autorestart
