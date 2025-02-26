@@ -1,2 +1,2 @@
-elasticsearch==8.14.0
+elasticsearch==8.17.1
 python-decouple==3.8
