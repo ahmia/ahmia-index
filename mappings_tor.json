@@ -1,6 +1,9 @@
 {
   "settings": {
     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "refresh_interval": "5m",
       "max_result_window": "30000"
     },
     "analysis": {
