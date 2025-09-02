@@ -25,10 +25,10 @@ def point_to_new_indexes(es, to_add=True, to_rm=True):
         try:
             es.indices.update_aliases(body={  # Use 'body' keyword argument
                 "actions": [
-                    {"remove": {"index": index_months(2), "alias": "latest-tor"}}
+                    {"remove": {"index": index_months(1), "alias": "latest-tor"}}
                 ]
             })
-            print(f"Removed alias for {index_months(2)}")
+            print(f"Removed alias for {index_months(1)}")
         except Exception as e:
             print(f"Error removing alias: {e}")
 
