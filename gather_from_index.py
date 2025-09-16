@@ -6,7 +6,8 @@ import settings  # Import the settings from settings.py
 ALLOWED_DOMAINS = [
     "donionsixbjtiohce24abfgsffo2l4tk26qx464zylumgejukfq2vead.onion",
     "deeeepv4bfndyatwkdzeciebqcwwlvgqa6mofdtsvwpon4elfut7lfqd.onion",
-    "juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion"
+    "juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion",
+    "torgolnpeouim56dykfob6jh5r2ps2j73enc42s2um4ufob3ny4fcdyd.onion"
 ]
 
 def search(es, domain_list, keywords_list):
