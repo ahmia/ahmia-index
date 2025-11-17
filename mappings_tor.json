@@ -4,7 +4,8 @@
       "number_of_shards": 1,
       "number_of_replicas": 0,
       "refresh_interval": "5m",
-      "max_result_window": "30000"
+      "max_result_window": 30000,
+      "codec": "best_compression"
     },
     "analysis": {
       "char_filter": {
@@ -26,25 +27,16 @@
           "min_shingle_size": 2,
           "output_unigrams": false
         },
-        "english_stop": {
-          "type": "stop",
-          "stopwords": "_english_"
-        },
-        "english_stemmer": {
-          "type": "stemmer",
-          "language": "english"
-        },
-        "english_possessive_stemmer": {
-          "type": "stemmer",
-          "language": "possessive_english"
-        }
+        "english_stop": { "type": "stop", "stopwords": "_english_" },
+        "english_stemmer": { "type": "stemmer", "language": "english" },
+        "english_possessive_stemmer": { "type": "stemmer", "language": "possessive_english" }
       },
       "analyzer": {
-        "url": {
+        "url_analyzer": {
           "type": "custom",
           "char_filter": ["html_strip"],
-          "tokenizer": "lowercase",
-          "filter": ["stop"]
+          "tokenizer": "uax_url_email",
+          "filter": ["lowercase"]
         },
         "raw_plain": {
           "type": "custom",
@@ -72,83 +64,59 @@
       }
     }
   },
+
   "mappings": {
+    "dynamic": "false",
     "properties": {
+
       "url": {
         "type": "text",
-        "analyzer": "url"
+        "analyzer": "url_analyzer"
       },
+
       "h1": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "raw_plain"
       },
+
       "title": {
-        "type": "keyword",
-        "copy_to": "fancy"
-      },
-      "meta": {
-        "type": "keyword",
-        "copy_to": "fancy"
-      },
-      "anchors": {
-        "type": "keyword",
-        "copy_to": "fancy"
-      },
-      "fancy": {
         "type": "text",
         "analyzer": "raw_plain",
         "fields": {
-          "shingles": {
-            "type": "text",
-            "analyzer": "shingle_plain"
-          },
-          "english": {
-            "type": "text",
-            "analyzer": "english_plain"
-          }
+          "english":  { "type": "text", "analyzer": "english_plain" },
+          "shingles": { "type": "text", "analyzer": "shingle_plain" }
         }
       },
+
+      "meta": {
+        "type": "text",
+        "analyzer": "raw_plain",
+        "fields": {
+          "english":  { "type": "text", "analyzer": "english_plain" },
+          "shingles": { "type": "text", "analyzer": "shingle_plain" }
+        }
+      },
+
       "content": {
         "type": "text",
         "analyzer": "raw_plain",
         "fields": {
-          "shingles": {
-            "type": "text",
-            "analyzer": "shingle_plain"
-          },
-          "english": {
-            "type": "text",
-            "analyzer": "english_plain"
-          }
+          "english":  { "type": "text", "analyzer": "english_plain" },
+          "shingles": { "type": "text", "analyzer": "shingle_plain" }
         }
       },
-      "domain": {
-        "type": "keyword"
-      },
-      "lang": {
-        "type": "keyword"
-      },
-      "content_type": {
-        "type": "keyword"
-      },
-      "content_checksum": {
-        "type": "keyword"
-      },
-      "code": {
-        "type": "short"
-      },
-      "is_fake": {
-        "type": "boolean"
-      },
-      "is_banned": {
-        "type": "boolean"
-      },
+
+      "domain": { "type": "keyword" },
+
+      "content_type": { "type": "keyword" },
+
       "updated_on": {
         "type": "date",
         "format": "strict_date_optional_time"
       },
-      "last_seen": {
-        "type": "date",
-        "format": "strict_date_optional_time"
+
+      "is_banned": {
+        "type": "boolean"
       }
     }
   }
