@@ -14,7 +14,7 @@ def index_months(months_ago=0):
     while months_removed < months_ago:
         month = _previous_month(month)
         months_removed += 1
-    return month.strftime("tor-%Y-%m")
+    return month.strftime("%Y-%m")
 
 def point_to_new_indexes(es, to_add=True, to_rm=True):
     """

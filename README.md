@@ -89,7 +89,7 @@ Alternatively, you could set up the indices manually, somehow like this:
 
 ```sh
 curl -i --cacert /usr/local/share/ca-certificates/http_ca.crt -u elastic -XPUT \
-'https://localhost:9200/tor-2024-01/' \
+'https://localhost:9200/2024-01/' \
 -H 'Content-Type: application/json' -d "@./mappings_tor.json"
 ```
 

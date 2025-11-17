@@ -25,7 +25,7 @@ curl --cacert ${ES_CA_CERTS} --user ${ES_USERNAME}:${ES_PASSWORD} \
 
 for YEAR in {2018..2024}; do
   for MONTH in 01 02 03 04 05 06 07 08 09 10 11 12; do
-    INDEX_NAME="tor-$YEAR-$MONTH"
+    INDEX_NAME="$YEAR-$MONTH"
     echo ""
     echo $INDEX_NAME
     echo ""
