@@ -149,40 +149,6 @@
       "last_seen": {
         "type": "date",
         "format": "strict_date_optional_time"
-      },
-      "authority": {
-        "type": "double"
-      },
-      "visits": {
-        "type": "long"
-      },
-      "clicks": {
-        "type": "long"
-      },
-      "links" : {
-        "properties" : {
-          "link" : {
-            "type" : "text",
-            "fields" : {
-              "keyword" : {
-                "type" : "keyword",
-                "ignore_above" : 256
-              }
-            }
-          },
-          "link_name" : {
-            "type" : "text",
-            "fields" : {
-              "keyword" : {
-                "type" : "keyword",
-                "ignore_above" : 256
-              }
-            }
-          }
-        }
-      },
-      "backlinks": {
-        "type": "long"
       }
     }
   }
