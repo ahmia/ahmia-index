@@ -106,6 +106,8 @@
         }
       },
 
+      "content_hash": {"type": "keyword"},
+
       "domain": { "type": "keyword" },
 
       "content_type": { "type": "keyword" },
