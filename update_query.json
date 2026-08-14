@@ -1,0 +1,4 @@
+{
+  "script": { "source": "ctx._source.simhash = ctx._source.simhash" },
+  "query": { "match_all": {} }
+}

@@ -113,6 +113,12 @@
 
       "content_hash": {"type": "keyword"},
 
+      "simhash": {"type": "keyword"},
+
+      "duplicate_group_id": {"type": "keyword"},
+
+      "is_representative": {"type": "boolean"},
+
       "domain": { "type": "keyword" },
 
       "content_type": { "type": "keyword" },
