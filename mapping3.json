@@ -1,0 +1,7 @@
+{
+  "properties": {
+    "consecutive_failures": { "type": "integer" },
+    "last_failed_at": { "type": "date", "format": "strict_date_optional_time" },
+    "is_alive": { "type": "boolean" }
+  }
+}
