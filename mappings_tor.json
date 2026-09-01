@@ -106,6 +106,19 @@
         }
       },
 
+      "clean_content": {
+        "type": "text",
+        "analyzer": "raw_plain"
+      },
+
+      "content_hash": {"type": "keyword"},
+
+      "simhash": {"type": "keyword"},
+
+      "duplicate_group_id": {"type": "keyword"},
+
+      "is_representative": {"type": "boolean"},
+
       "domain": { "type": "keyword" },
 
       "content_type": { "type": "keyword" },
@@ -117,7 +130,13 @@
 
       "is_banned": {
         "type": "boolean"
-      }
+      },
+
+      "consecutive_failures": { "type": "integer" },
+
+      "last_failed_at": { "type": "date", "format": "strict_date_optional_time" },
+      
+      "is_alive": { "type": "boolean" }
     }
   }
 }

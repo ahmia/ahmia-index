@@ -1,0 +1,6 @@
+{
+  "properties": {
+    "duplicate_group_id": { "type": "keyword" },
+    "is_representative": { "type": "boolean" }
+  }
+}
